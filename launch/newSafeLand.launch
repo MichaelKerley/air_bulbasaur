@@ -1,7 +1,5 @@
 <launch>
 
-    <node pkg="tf" type="static_transform_publisher" name="tf_foward_camera_stereo" args="0 0 0 -1.57 0 -1.57 fcu camera_link 10" />
-    <arg name="local_planner_camera" default="[/stereo/points2]" />
 
     <node pkg="tf" type="static_transform_publisher" name="tf_down_camera_depth" args="0 0 0 1.57 3.14 0 fcu down_camera_link 10" />
     <arg name="safe_landing_camera" default="/down_camera/depth/points" /> 
@@ -33,17 +31,6 @@
     <include file="$(find px4)/launch/px4.launch">
         <arg name="vehicle" value="$(arg vehicle)" />
     </include>
-
-
-    <!-- Launch stereo_image_proc node which runs OpenCV's block matching  -->
-    <node ns="stereo" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc">
-        <param name="stereo_algorithm" type="double" value="1.0" />
-        <param name="correlation_window_size" type="double" value="19.0" />
-        <param name="disparity_range" type="double" value="32.0" />
-        <param name="uniqueness_ratio" type="double" value="40.0" />
-        <param name="speckle_size" type="double" value="1000.0" />
-        <param name="speckle_range" type="double" value="2.0" />
-    </node>
 
 
     <!-- Launch MavROS -->
@@ -79,18 +66,11 @@
     <!-- Launch safe landing planner -->  
     <node name="safe_landing_planner_node" pkg="safe_landing_planner" type="safe_landing_planner_node" output="log">
         <param name="pointcloud_topics" value="$(arg safe_landing_camera)" />
-
     </node>
 
     <node name="waypoint_generator_node" pkg="safe_landing_planner" type="waypoint_generator_node" output="screen"></node>
     <node name="dynparam_slpn" pkg="dynamic_reconfigure" type="dynparam" args="load safe_landing_planner_node $(find safe_landing_planner)/cfg/slpn.yaml" />
     <node name="dynparam_wpgn" pkg="dynamic_reconfigure" type="dynparam" args="load waypoint_generator_node $(find safe_landing_planner)/cfg/wpgn.yaml" />
-
     <node name="rviz" pkg="rviz" type="rviz" output="log" args="-d $(find air_bulbasaur)/rviz/modalAI.rviz" />
-
-
-
-    <node name="stero_cam_display" pkg="topic_tools" type="transform" args="/stereo/disparity /stereo/disparity_image sensor_msgs/Image 'm.image' " />
-
 
 </launch>

@@ -63,7 +63,7 @@
     <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen" args="-sdf -file $(arg sdf) -model $(arg vehicle) " />
 
 
-    <!-- Launch safe landing planner -->  
+    <!-- Launch safe landing planner  The pointcloud_topic is the safe_landing_camera -->  
     <node name="safe_landing_planner_node" pkg="safe_landing_planner" type="safe_landing_planner_node" output="log">
         <param name="pointcloud_topics" value="$(arg safe_landing_camera)" />
     </node>

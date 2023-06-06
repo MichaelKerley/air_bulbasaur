@@ -1,0 +1,3 @@
+  <machine name="jetson" address="10.144.40.0" env-loader="/opt/ros/noetic/env.sh" user="michael"/>
+
+  <node machine="foo" name="footalker" pkg="test_ros" type="talker.py" />

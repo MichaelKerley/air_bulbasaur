@@ -26,7 +26,7 @@
     <param name="use_sim_time" value="true" />
 
     <!-- Launch rqt_reconfigure -->
-    <node pkg="rqt_reconfigure" type="rqt_reconfigure" output="screen" name="rqt_reconfigure" />
+    <node pkg="rqt_reconfigure" type="rqt_reconfigure" output="log" name="rqt_reconfigure" />
 
     <!-- Launch PX4 SITL -->
     <include file="$(find px4)/launch/px4.launch">
@@ -62,13 +62,10 @@
 
 
     <!-- gazebo model -->
-    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen"
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="log"
         args="-sdf -file $(arg sdf) -model $(arg vehicle) " />
 
 
-
-     
-        
     <node name="rviz" pkg="rviz" type="rviz" output="log"
         args="-d $(find air_bulbasaur)/rviz/modalAI.rviz" />
 
@@ -87,22 +84,63 @@
 
     <node machine="michael" name="waypoint_generator_node" pkg="safe_landing_planner"
         type="waypoint_generator_node"
-        output="screen"></node>
+        output="log"></node>
 
     <node machine="michael" name="dynparam_slpn" pkg="dynamic_reconfigure" type="dynparam"
         args="load safe_landing_planner_node /home/michael/catkin_ws/src/superSafeLanding/safe_landing_planner/cfg/slpn.yaml" />
 
     <node machine="michael" name="dynparam_wpgn" pkg="dynamic_reconfigure" type="dynparam"
         args="load waypoint_generator_node /home/michael/catkin_ws/src/superSafeLanding/safe_landing_planner/cfg/wpgn.yaml" />
-    
 
-    <!-- Launch safe landing planner  The pointcloud_topic is the safe_landing_camera 
-    <node name="safe_landing_planner_node" pkg="safe_landing_planner" type="safe_landing_planner_node" output="log">
-        <param name="pointcloud_topics" value="$(arg safe_landing_camera)" />
+
+    <!-- SEGNET -->
+
+    <arg name="model_name" default="fcn-resnet18-cityscapes-2048x1024" />
+
+    <arg name="model_path" default="" />
+
+    <arg name="prototxt_path" default="" />
+
+    <arg name="class_labels_path" default="" />
+
+    <arg name="class_colors_path" default="" />
+
+    <arg name="input_blob" default="" />
+
+    <arg name="output_blob" default="" />
+
+    <arg name="mask_filter" default="linear" />
+
+    <arg name="overlay_filter" default="linear" />
+
+    <arg name="overlay_alpha" default="180.0" />
+
+
+    <node machine="michael" pkg="ros_deep_learning" type="safeland_cv" name="safeland_cv"
+        output="screen">
+
+        <!-- <remap from="/segnet/image_in" to="/video_source/raw"/> -->
+
+        <param name="model_name" value="$(arg model_name)" />
+
+        <param name="model_path" value="$(arg model_path)" />
+
+        <param name="prototxt_path" value="$(arg prototxt_path)" />
+
+        <param name="class_labels_path" value="$(arg class_labels_path)" />
+
+        <param name="class_colors_path" value="$(arg class_colors_path)" />
+
+        <param name="input_blob" value="$(arg input_blob)" />
+
+        <param name="output_blob" value="$(arg output_blob)" />
+
+        <param name="mask_filter" value="$(arg mask_filter)" />
+
+        <param name="overlay_filter" value="$(arg overlay_filter)" />
+
+        <param name="overlay_alpha" value="$(arg overlay_alpha)" />
+
     </node>
 
-    <node name="waypoint_generator_node" pkg="safe_landing_planner" type="waypoint_generator_node" output="screen"></node>
-    <node name="dynparam_slpn" pkg="dynamic_reconfigure" type="dynparam" args="load safe_landing_planner_node $(find safe_landing_planner)/cfg/slpn.yaml" />
-    <node name="dynparam_wpgn" pkg="dynamic_reconfigure" type="dynparam" args="load waypoint_generator_node $(find safe_landing_planner)/cfg/wpgn.yaml" />
-    <node name="rviz" pkg="rviz" type="rviz" output="log" args="-d $(find air_bulbasaur)/rviz/modalAI.rviz" />  -->
 </launch>

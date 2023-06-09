@@ -59,8 +59,8 @@
             <horizontal_fov>1.02974</horizontal_fov>
             <image>
               <format>R8G8B8</format>
-              <width>1920</width>
-              <height>1080</height>
+              <width>640</width> <!-- was 1920x1080 -->
+              <height>480</height>
             </image>
           </camera>
           <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_controller">

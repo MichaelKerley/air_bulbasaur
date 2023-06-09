@@ -11,8 +11,8 @@
     <arg name="world_path" default="$(find air_bulbasaur)/worlds/modalAI.world" />
 
     <arg name="gui" default="true" />
-    <arg name="debug" default="true" />
-    <arg name="verbose" default="true" />
+    <arg name="debug" default="false" />
+    <arg name="verbose" default="false" />
     <arg name="paused" default="false" />
     <arg name="respawn_gazebo" default="false" />
     <arg name="lockstep" default="true" />
@@ -117,7 +117,7 @@
 
 
     <node machine="michael" pkg="ros_deep_learning" type="safeland_cv" name="safeland_cv"
-        output="screen">
+        output="log">
 
         <!-- <remap from="/segnet/image_in" to="/video_source/raw"/> -->
 

@@ -3,3 +3,9 @@
   <node machine="foo" name="footalker" pkg="test_ros" type="talker.py" />
       <include machine="michael-desktop" file="$(find ros_deep_learning)/launch/safeland_cv.launch"></include>
 
+asdfasdfasdfasd
+asdfasdfasdfasdfa
+safeland_cvfa
+safeland_cvfasd
+fileads
+

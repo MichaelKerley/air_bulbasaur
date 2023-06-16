@@ -10,9 +10,9 @@
     <arg name="sdf" default="$(find air_bulbasaur)/models/modalAI/modalAI.sdf" />
     <arg name="world_path" default="$(find air_bulbasaur)/worlds/modalAI.world" />
 
-    <arg name="gui" default="true" />
-    <arg name="debug" default="false" />
-    <arg name="verbose" default="false" />
+    <arg name="gui" default="false" />
+    <arg name="debug" default="true" />
+    <arg name="verbose" default="true" />
     <arg name="paused" default="false" />
     <arg name="respawn_gazebo" default="false" />
     <arg name="lockstep" default="true" />
@@ -32,6 +32,8 @@
     <include file="$(find px4)/launch/px4.launch">
         <arg name="vehicle" value="$(arg vehicle)" />
     </include>
+
+
 
 
     <!-- Launch MavROS -->
@@ -72,7 +74,7 @@
 
     <machine
         name="michael"
-        address="10.144.40.215"
+        address="10.144.166.95"
         env-loader="/opt/ros/noetic/envR1.sh"
         default="true"
         user="michael"
@@ -93,7 +95,7 @@
         args="load waypoint_generator_node /home/michael/catkin_ws/src/superSafeLanding/safe_landing_planner/cfg/wpgn.yaml" />
 
 
-    <!-- SEGNET -->
+    <!-- SEGNET 
 
     <arg name="model_name" default="fcn-resnet18-cityscapes-2048x1024" />
 
@@ -117,9 +119,9 @@
 
 
     <node machine="michael" pkg="ros_deep_learning" type="safeland_cv" name="safeland_cv"
-        output="log">
+        output="screen">
 
-        <!-- <remap from="/segnet/image_in" to="/video_source/raw"/> -->
+        
 
         <param name="model_name" value="$(arg model_name)" />
 
@@ -142,5 +144,6 @@
         <param name="overlay_alpha" value="$(arg overlay_alpha)" />
 
     </node>
+    -->
 
 </launch>

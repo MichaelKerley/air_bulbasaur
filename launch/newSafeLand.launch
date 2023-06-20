@@ -8,9 +8,9 @@
 
     <!-- gazebo configs -->
     <arg name="sdf" default="$(find air_bulbasaur)/models/modalAI/modalAI.sdf" />
-    <arg name="world_path" default="$(find air_bulbasaur)/worlds/jetsonTesting.world" />
+    <arg name="world_path" default="$(find air_bulbasaur)/worlds/jetsonTest.world" />
 
-    <arg name="gui" default="true" />
+    <arg name="gui" default="false" />
     <arg name="debug" default="true" />
     <arg name="verbose" default="true" />
     <arg name="paused" default="false" />
@@ -94,7 +94,7 @@
 
     <!-- SEGNET -->
 
-    <arg name="model_name" default="fcn-resnet18-cityscapes-2048x1024" />
+    <arg name="model_name" default="fcn-resnet18-cityscapes-1024x512"/>
 
     <arg name="model_path" default="" />
 

@@ -8,9 +8,9 @@
 
     <!-- gazebo configs -->
     <arg name="sdf" default="$(find air_bulbasaur)/models/modalAI/modalAI.sdf" />
-    <arg name="world_path" default="$(find air_bulbasaur)/worlds/jetsonTest.world" />
+    <arg name="world_path" default="$(find air_bulbasaur)/worlds/test.world" />
 
-    <arg name="gui" default="false" />
+    <arg name="gui" default="true" />
     <arg name="debug" default="true" />
     <arg name="verbose" default="true" />
     <arg name="paused" default="false" />
